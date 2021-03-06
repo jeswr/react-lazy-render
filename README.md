@@ -10,7 +10,7 @@ Lazy rendering for asynchronous React components.
 ## Usage
 
 ```tsx
-import LazyFactory from ''
+import LazyFactory from '@jeswr/react-lazy-renderer'
 
 const LazyTextDisplay = LazyFactory<{ text: Promise<string> | string }>(
   async ({ text }) => {
