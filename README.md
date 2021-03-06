@@ -9,9 +9,19 @@ Lazy rendering for asynchronous React components.
 
 ## Usage
 
-```ts
+```tsx
 import LazyFactory from ''
 
+const LazyTextDisplay = LazyFactory<{ text: Promise<string> | string }>(
+  async ({ text }) => {
+    const resolvedText = `${await text}`;
+    return <>{resolvedText}</>;
+  },
+);
+
+function App() {
+  return <LazyTextDisplay text={Promise.resolve('Foo')} />;
+}
 ```
 
 ## License
