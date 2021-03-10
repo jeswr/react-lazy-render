@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 
 export default function LazyFactory<Props extends {}>(
-  C: (p: Props) => Promise<JSX.Element>,
+  C: (p: Props) => Promise<JSX.Element | void>,
 ): (p: Props & { fallback?: React.ReactNode }) => JSX.Element {
   return (p: Props & { fallback?: React.ReactNode }) => {
     const Component = React.lazy(() => new Promise<{ default: React.ComponentType<{}> }>(
@@ -14,7 +14,7 @@ export default function LazyFactory<Props extends {}>(
           if (Resolved) {
             resolve({ default: () => Resolved });
           }
-          throw new Error('Resolved is undefined');
+          reject('Resolved to falsy value');
         } catch (e) {
           reject(e);
         }
